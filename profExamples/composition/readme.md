@@ -1,0 +1,1 @@
+problems with extension of class and provided some solutions.
