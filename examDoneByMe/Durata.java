@@ -1,3 +1,5 @@
+import java.time.LocalTime;
+import java.util.Objects;
 
 /**
  * Una durata è una classe mutabile che rappresenta una durata di un brano.
@@ -18,6 +20,21 @@ public class Durata {
         this.durata = durata;
 
         assert repOK();
+    }
+
+    /**
+     * Costruttore di una durata da una stringa.
+     * @param durata la durata sottoforma di stringa.
+     */
+    public Durata(String durata){
+        Objects.requireNonNull(durata);
+
+        String[] splitted = durata.trim().split(":");
+        
+        int minuti = Integer.parseInt(splitted[0]);
+        int secondi = Integer.parseInt(splitted[1]);
+
+        this.durata = (minuti*60)+secondi;
     }
 
     /**
@@ -44,12 +61,14 @@ public class Durata {
         return this.durata > 0;
     }
 
-
-//7295 secondi corrisponde alla stringa 2:01:35
-
     @Override
     public String toString() {
-        return "11:11:11";
+        LocalTime time = LocalTime.ofSecondOfDay(this.durata);
+
+        if (time.getHour() == 0){
+            return time.getMinute() + ":" + time.getSecond();
+        }
+        return time.getHour() + ":" + time.getMinute() + ":" + time.getSecond();
     }
 
     @Override

@@ -73,6 +73,11 @@ public class Album{
             final Brano tmp = (Brano) o;
             return tmp.durata == durata && tmp.titolo.equals(titolo);
         }
+
+        @Override
+        public String toString(){
+            return this.durata + " - " + this.titolo;
+        }
     }
     
     private final List<Brano> brani;
@@ -185,5 +190,17 @@ public class Album{
         return tmp.durataComplessiva == durataComplessiva 
                 && tmp.titolo.equals(titolo)
                 && tmp.brani.equals(brani);
+    }
+
+    @Override
+    public String toString(){
+        String res = "Nome album: " + this.titolo + "\n";
+
+        for(Brano b : this.brani){
+            res += b + "\n";
+        }
+
+        res += "Durata complessiva " + this.durataComplessiva + "\n";
+        return res;
     }
 }
