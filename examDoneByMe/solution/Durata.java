@@ -19,7 +19,6 @@ along with this file.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 
-package it.unimi.di.prog2.temisvolti.playfy;
 
 import java.util.Objects;
 
