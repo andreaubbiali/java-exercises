@@ -669,149 +669,22 @@ blockquote {
 </style></head><body><article id="00b6e8a8-bee7-483e-8093-4e4d3d40f38a" class="page sans"><header><h1 class="page-title">Iterator</h1></header><div class="page-body"><p id="392668e9-c061-4f36-aaf6-e40841b61e6d" class="">Are used in Collection framework in Java to retrieve elements one by one.</p><h3 id="02de4c6d-abd7-4778-8eda-5fa3fec4cfd8" class="">Why is needed to implement iterable interface?</h3><p id="ce68c704-313b-431e-bc63-3d4684e3e1bd" class="">Every class that implements Iterable interface appropriately, can be used in the enhanced For loop (for-each loop). The need to implement the Iterator interface arises while designing custom data structures.</p><pre id="abb25e22-4065-4353-abd2-738312ea892b" class="code"><code>for(Item item: customDataStructure) {
     // do stuff
 }</code></pre><p id="de2bcdb4-f499-45cf-831d-ec11ffa9ddb6" class="">
-</p><h3 id="2db9467d-8294-4489-9f6d-6e80e0aca511" class="">how to implement iterable interface?</h3><ol type="1" id="eb6aaeb8-a4ee-4d64-bafd-5d481479a4cc" class="numbered-list" start="1"><li>Implement Iterable interface along with its methods in the said Data Structure</li></ol><ol type="1" id="18387b1d-f963-4e80-bdeb-58e6cb79fedf" class="numbered-list" start="2"><li>Create an Iterator class which implements Iterator interface and corresponding methods.</li></ol><pre id="ff3cab26-7990-46de-a1ae-e3298f5125df" class="code"><code>//generalized code
-class CustomDataStructure implements Iterable&lt;&gt; {
-      
-    // code for data structure
-    public Iterator&lt;&gt; iterator() {
-        return new CustomIterator&lt;&gt;(this);
-    }
-}
-class CustomIterator&lt;&gt; implements Iterator&lt;&gt; {
-      
-    // constructor
-    CustomIterator&lt;&gt;(CustomDataStructure obj) {
-        // initialize cursor
-    }
-      
-    // Checks if the next element exists
-    public boolean hasNext() {
-    }
-      
-    // moves the cursor/iterator to next element
-    public T next() {
-    }
-      
-    // Used to remove an element. Implement only if needed
-    public void remove() {
-        // Default throws UnsupportedOperationException.
-    }
+</p><p id="a6e62e63-9034-4052-9419-c947a8f48843" class="">A Java Cursor is an Iterator, which is used to iterate or traverse or
+ retrieve a Collection or Stream object’s elements one by one. There are
+ <strong>three cursors in Java</strong>.</p><ol type="1" id="6253a5ff-6026-4bce-8cec-d85643141ee7" class="numbered-list" start="1"><li>Iterator</li></ol><ol type="1" id="dfd242d9-e9cd-4e96-aadf-dc453461094b" class="numbered-list" start="2"><li>Enumeration</li></ol><ol type="1" id="69239293-fd9f-43a1-bc06-171d5137499f" class="numbered-list" start="3"><li>ListIterator</li></ol><p id="b1cd63dd-0330-49ca-8209-65c4cf729645" class="">The iterator is an improvement of java enumeration with the additional functionality of removing an element.</p><p id="f7f8663c-53a0-47c2-aa40-fdb8f5a6a087" class="">
+</p><h3 id="5951d7dc-aee2-4a53-a23b-43bacd621fae" class="">Iterator interface</h3><pre id="47875f26-5f2f-4f7d-a80d-a7e5d8df5ed7" class="code"><code>public interface Iterator&lt;E&gt;{
+	public abstract boolean hasNext();
+  
+  public abstract E next();
+  
+  public void remove() {
+  }
+  
+  public  void forEachRemaining(java.util.function.Consumer&lt;? super E&gt; action) {
+  }
+}</code></pre><p id="0b668998-f475-4738-9c8e-1f315c81f467" class="">The remove method can hrow two exceptions namely as follows:</p><ul id="4e2f36d8-ed3a-4922-8408-79d530f65529" class="bulleted-list"><li style="list-style-type:disc"><em><strong>UnsupportedOperationException </strong></em><em>: </em>If the remove operation is not supported by this iterator</li></ul><ul id="1cd7b9fc-212f-4d0f-932f-20b90ac9dcce" class="bulleted-list"><li style="list-style-type:disc"><em><strong>IllegalStateException </strong></em><em>: </em>If the next method has not yet been called, or the remove method has already been called after the last call to the next method.</li></ul><h3 id="2db9467d-8294-4489-9f6d-6e80e0aca511" class="">how to implement iterator and iterable interface?</h3><p id="fbed5d67-f309-4ccf-9e88-2418c20ba7ac" class="">Iterable interface <strong>represents a data structure that can be iterated over.</strong></p><p id="dd3434c8-9a0e-4659-8731-3e9be0b3024e" class="">Simply the iterable interface provide a method that produces an Iterator. We can iterate over an <code>Iterable</code> using the for-each loop.</p><pre id="4cbdcbc8-364d-4e34-a169-1734784e2b00" class="code"><code>List&lt;Integer&gt; numbers = getNumbers();
+for (Integer number : numbers) {
+    System.out.println(number);
 }</code></pre><p id="fafedd37-b40e-4441-8187-013f9837acdb" class="">
-</p><p id="c83f05f4-c28e-45be-b36f-de2f3f46d6d1" class="">a real example</p><pre id="ef50ac84-d6d9-4e0b-8b90-ca5dbea1c0a4" class="code"><code>import java.util.Iterator;
-  
-// Custom Linked List class using Generics
-class List&lt;T&gt; implements Iterable&lt;T&gt; {
-    Node&lt;T&gt; head, tail;
-      
-    // add new Element at tail of the linked list in O(1)
-    public void add(T data)
-    {
-        Node&lt;T&gt; node = new Node&lt;&gt;(data, null);
-        if (head == null)
-            tail = head = node;
-        else {
-            tail.setNext(node);
-            tail = node;
-        }
-    }
-      
-    // return Head
-    public Node&lt;T&gt; getHead()
-    {
-        return head;
-    }
-      
-    // return Tail
-    public Node&lt;T&gt; getTail()
-    {
-        return tail;
-    }
-      
-    // return Iterator instance
-    public Iterator&lt;T&gt; iterator()
-    {
-        return new ListIterator&lt;T&gt;(this);
-    }
-}
-  
-class ListIterator&lt;T&gt; implements Iterator&lt;T&gt; {
-    Node&lt;T&gt; current;
-      
-    // initialize pointer to head of the list for iteration
-    public ListIterator(List&lt;T&gt; list)
-    {
-        current = list.getHead();
-    }
-      
-    // returns false if next element does not exist
-    public boolean hasNext()
-    {
-        return current != null;
-    }
-      
-    // return current data and update pointer
-    public T next()
-    {
-        T data = current.getData();
-        current = current.getNext();
-        return data;
-    }
-      
-    // implement if needed
-    public void remove()
-    {
-        throw new UnsupportedOperationException();
-    }
-}
-  
-// Constituent Node of Linked List
-class Node&lt;T&gt; {
-    T data;
-    Node&lt;T&gt; next;
-    public Node(T data, Node&lt;T&gt; next)
-    {
-        this.data = data;
-        this.next = next;
-    }
-      
-    // Setter getter methods for Data and Next Pointer
-    public void setData(T data)
-    {
-        this.data = data;
-    }
-      
-    public void setNext(Node&lt;T&gt; next)
-    {
-        this.next = next;
-    }
-      
-    public T getData()
-    {
-        return data;
-    }
-      
-    public Node&lt;T&gt; getNext()
-    {
-        return next;
-    }
-}
-  
-// Driver class
-class Main {
-    public static void main(String[] args)
-    {
-        // Create Linked List
-        List&lt;String&gt; myList = new List&lt;&gt;();
-          
-        // Add Elements
-        myList.add(&quot;abc&quot;);
-        myList.add(&quot;mno&quot;);
-        myList.add(&quot;pqr&quot;);
-        myList.add(&quot;xyz&quot;);
-          
-        // Iterate through the list using For Each Loop
-        for (String string : myList)
-            System.out.println(string);
-    }
-}</code></pre><p id="aa91b576-51d4-4671-bc24-08d831b9947b" class="">
+</p><table id="334887ae-8edd-4c99-8afc-7c14e1787255" class="simple-table"><tbody><tr id="4c2e1d2b-810e-4e62-a27c-08cf8d7c814c"><td id="ovel" class="" style="width:355px">ITERABLE</td><td id=";Qs_" class="" style="width:346px">ITERATOR</td></tr><tr id="e62faee6-55ae-4644-9ca4-1335b843bb43"><td id="ovel" class="" style="width:355px">Represents a collection that can be iterated over using a <em>for</em>-each loop</td><td id=";Qs_" class="" style="width:346px">Represents an interface that can be used to iterate over a collection</td></tr><tr id="5f5b33d4-51d7-473f-8d01-88a81da71419"><td id="ovel" class="" style="width:355px">When implementing an <em>Iterable</em>, we need to override the <em>iterator()</em> method</td><td id=";Qs_" class="" style="width:346px">When implementing an <em>Iterator</em>, we need to override the <em>hasNext()</em> and <em>next()</em> methods</td></tr><tr id="b3c587d9-57ac-4774-93c3-67b6c2e696b6"><td id="ovel" class="" style="width:355px">Doesn&#x27;t store the iteration state</td><td id=";Qs_" class="" style="width:346px">Stores the iteration state</td></tr><tr id="07373134-93ae-430e-8a6b-4620969f7e6e"><td id="ovel" class="" style="width:355px">Removing elements during the iteration isn&#x27;t allowed</td><td id=";Qs_" class="" style="width:346px">Removing elements during the iteration is allowed</td></tr></tbody></table><p id="aa91b576-51d4-4671-bc24-08d831b9947b" class="">
 </p></div></article></body></html>
