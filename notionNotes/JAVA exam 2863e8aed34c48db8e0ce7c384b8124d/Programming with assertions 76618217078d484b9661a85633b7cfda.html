@@ -1,0 +1,768 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Programming with assertions</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="76618217-078d-484b-9661-a85633b7cfda" class="page sans"><header><h1 class="page-title">Programming with assertions</h1></header><div class="page-body"><p id="73287178-5bc3-4696-9eaf-5f77402abc95" class="">An <em>assertion</em> is a statement in the Java programming language that enables you to
+test your assumptions about your program.</p><p id="6976927e-c4f8-4aea-b20d-7b4f474fb26f" class="">Each assertion contains a boolean expression that you believe will be true when the assertion executes. I not true throw an error.</p><p id="defd8632-a7a4-445a-adf8-a87f10e4f503" class="">
+</p><p id="a7c1d311-6473-4d77-8aa8-47ee616ce120" class="">The assertion statement has two forms. The first, simpler form is:</p><pre id="749eb821-5c12-47e6-b904-18e9cd0116ed" class="code code-wrap"><code>assertExpression1 ;
+</code></pre><p id="eb8262c3-a784-413f-8de8-1c5e78ce3802" class="">where Expression1 is a <code>boolean</code> expression. When the system runs the assertion, it evaluates Expression1 and if it is <code>false </code>throws an <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AssertionError.html"><code>AssertionError</code></a> with no detail message.</p><p id="1668a2be-76d5-473c-99f0-6e37e0b6d686" class="">The second form of the assertion statement is:</p><pre id="9289fe67-4308-4604-897f-5576eb6273bd" class="code code-wrap"><code>assertExpression1 :Expression2 ;
+</code></pre><p id="a576ccf0-bec2-4322-82a5-c4fc1a26c356" class="">where:</p><ul id="450ab6ef-4f40-4f02-861f-8513fc242cec" class="bulleted-list"><li style="list-style-type:disc">Expression1 is a boolean expression.</li></ul><ul id="dd172c89-91eb-446e-a056-c85a56725f6a" class="bulleted-list"><li style="list-style-type:disc">Expression2 is an expression that has a value. (It cannot be an invocation of a
+method that is declared <code>void</code>.)</li></ul><p id="e067322a-6a26-4bd3-9630-e4a36568692a" class="">Use this version of the <code>assert</code> statement to provide a detail message for the <code>AssertionError</code>. The system passes the value of Expression2 to the appropriate <code>AssertionError</code> constructor, which uses the string representation of the value as the error&#x27;s detail message.</p><p id="bad68fb0-47ae-4c27-8e18-93827ca4ff4e" class="">Note that the detail message is <em>not</em> a user-level error message.</p><p id="42939188-3a79-4668-b3db-2c911972f6eb" class="">
+</p><h3 id="009b0436-989f-4803-a028-1524afd9814c" class="">Situations <span style="border-bottom:0.05em solid">where it is good to use assertions</span>:</h3><ul id="c860f07a-6d41-42dc-b881-1b8d45b7c7a9" class="toggle"><li><details open=""><summary>Internal variants</summary><p id="647b0dc5-3480-4933-955b-1a40ec16eda6" class="">Before assertions were available, many programmers used comments to indicate their assumptions concerning a program&#x27;s behavior.</p><pre id="fe7098b7-e5e0-4e58-a626-61cf55973820" class="code"><code>//BEFORE
+if (i % 3 == 0) {
+    ...
+} else if (i % 3 == 1) {
+    ...
+} else { // We know (i % 3 == 2)
+    ...
+}
+
+//WITH THE ASSERTIONS
+if (i % 3 == 0) {
+   ...
+} else if (i % 3 == 1) {
+    ...
+} else {
+    assert i % 3 == 2 : i;
+    ...
+}
+</code></pre><p id="62e4c689-4d71-4bb5-a39c-06ed6a8ffd76" class=""><strong>so use an assertion whenever you would have written a comment that asserts an invariant.</strong></p><p id="b7cfb2f5-4b70-4f9a-b585-f3dc9f32882c" class="">Another example can be in the switch. I want to use a switch and I’m secure that there can be only 4 cases.</p><pre id="01374e3a-e419-406a-915f-408ab3b38d8a" class="code"><code>switch(suit) {
+  case Suit.CLUBS:
+    ...
+  break;
+
+  case Suit.DIAMONDS:
+    ...
+  break;
+
+  case Suit.HEARTS:
+    ...
+    break;
+
+  case Suit.SPADES:
+      ...
+}
+
+// we can add also the assert and be secure that check one of the cases.
+default:
+    assert false : suit;
+
+// An alternative can also be. This alternative offers protection even
+// if assertions are disabled
+default:
+    throw new AssertionError(suit);</code></pre></details></li></ul><ul id="2a2fb217-599b-4808-a7c2-3b2f6dc6db5e" class="toggle"><li><details open=""><summary>Control-Flow Invariants</summary><p id="18809726-888a-431d-80a5-11fcb7f40b1b" class="">P<strong>lace an assertion at any location you assume will not be reached.</strong></p><pre id="e605dbf2-12dd-4426-96af-5bdef0bd0ea5" class="code"><code>void foo() {
+    for (...) {
+      if (...)
+        return;
+    }
+    // Execution should never reach this point!!!
+}
+
+// you can use assertion
+void foo() {
+    for (...) {
+      if (...)
+        return;
+    }
+    assert false;
+}</code></pre></details></li></ul><ul id="557cab86-0b1b-4fa1-8bc4-a4505075d143" class="toggle"><li><details open=""><summary>Preconditions, Postconditions and class Invariants</summary><ul id="638d5a3a-5805-4d99-9627-d978b7bd7fb9" class="bulleted-list"><li style="list-style-type:disc"><strong>Preconditions</strong>: <span style="border-bottom:0.05em solid">Do not use assertions to check the parameters of a public method</span><strong>. </strong>Use an assertion to test a nonpublic method’s precondition that you believe will be true no matter what a client does with the class.<pre id="b6b399f1-da72-416e-84e4-94a40d9cf15f" class="code"><code>/**
+ * Sets the refresh interval (which must correspond to a legal frame rate).
+ *
+ * @param  interval refresh interval in milliseconds.
+*/
+ private void setRefreshInterval(int interval) {
+  // Confirm adherence to precondition in nonpublic method
+  assert interval &gt; 0 &amp;&amp; interval &lt;= 1000/MAX_REFRESH_RATE : interval;
+
+  ... // Set the refresh interval
+	}</code></pre></li></ul><ul id="4c794701-54de-442b-9a50-8ac347e009be" class="bulleted-list"><li style="list-style-type:disc"><strong>Postconditions: </strong><span style="border-bottom:0.05em solid">You can test postcondition with assertions in both public and nonpublic methods.</span><pre id="1a52b3a0-3afc-4dd3-bb06-698e1422e623" class="code"><code>/**
+  * Returns a BigInteger whose value is (this-1 mod m).
+  *
+  * @param  m the modulus.
+  * @return this-1 mod m.
+  * @throws ArithmeticException  m &lt;= 0, or this BigInteger
+  *has no multiplicative inverse mod m (that is, this BigInteger
+  *is not relatively prime to m).
+  */
+public BigInteger modInverse(BigInteger m) {
+  if (m.signum &lt;= 0)
+    throw new ArithmeticException(&quot;Modulus not positive: &quot; + m);
+  ... // Do the computation
+  assert this.multiply(result).mod(m).equals(ONE) : this;
+  return result;
+}</code></pre></li></ul><ul id="ddf1c8d5-8dcb-40b9-adf6-17bfe6422fca" class="bulleted-list"><li style="list-style-type:disc"><strong>Class Invariants</strong>:  <span style="border-bottom:0.05em solid">is a type of internal invariant that applies to every instance of a class at all times</span>. Should be true before and after any method completes.<pre id="4a68bb69-dfe3-471f-8251-c3478e577f19" class="code"><code>// for example we have implemented a balanced tree and we have created a 
+// method to be secure it is balanced
+
+// Returns true if this tree is properly balanced
+ private boolean balanced() {
+  ...
+ }
+
+// use this assertion everytime.
+assert balanced();</code></pre></li></ul></details></li></ul><h3 id="13db07f0-1811-41c3-a717-5211b95df370" class="">Where you <span style="border-bottom:0.05em solid">must not use the assertion</span>:</h3><ul id="e37f9d82-167e-4aef-b4f7-d36e40f5840b" class="toggle"><li><details open=""><summary>Do <em>not</em> use assertions for argument checking in public methods.</summary></details></li></ul><ul id="ccb42a08-21b0-4e83-aace-6a9851c7ace8" class="toggle"><li><details open=""><summary>Do <em>not</em> use assertions to do any work that your application requires for correct operation.</summary></details></li></ul><p id="67de77b9-a8ef-4a2b-9094-b7de9c7ea4ad" class="">
+</p><p id="017fd768-a21c-4891-9438-3a308e83bf13" class="">To enable assertions at various granularities, use the <code>enableassertions</code>, or <code>ea</code>, switch. To disable assertions at various granularities, use the <code>disableassertions</code>, or <code>da</code>, switch.</p><p id="6cc370d1-9d1b-4bfe-8189-775bf7bf59ed" class="">
+</p><p id="56a8e388-f3e7-4650-bbb2-fb63330efb49" class=""><a href="https://docs.oracle.com/javase/8/docs/technotes/guides/language/assert.html">https://docs.oracle.com/javase/8/docs/technotes/guides/language/assert.html</a></p></div></article></body></html>

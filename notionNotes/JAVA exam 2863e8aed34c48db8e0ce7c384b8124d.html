@@ -1,0 +1,731 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>JAVA exam</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2863e8ae-d34c-48db-8e0c-e7c384b8124d" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">👹</span></div><h1 class="page-title">JAVA exam</h1></header><div class="page-body"><p id="8ec52603-be0a-45a0-82f4-e1e9cc583cf2" class="">NELL’ESAME non implementare hashcode/equals se non espressamente richiesto perchè rompe le balle</p><p id="4c0925e0-31ad-47a5-836b-52d3ed4569a8" class="">
+</p><p id="2f05fc60-554b-438c-8e46-ccb89bfb73fe" class="">java Doc</p><pre id="6c44d809-f4ff-4852-86b6-ee66082365be" class="code"><code>/**
+* Returns an Image object that can then be painted on the screen. 
+* The url argument must specify an absolute &lt;a href=&quot;#{@link}&quot;&gt;{@link URL}&lt;/a&gt;. The name
+* argument is a specifier that is relative to the url argument. 
+* &lt;p&gt;
+* This method always returns immediately, whether or not the 
+* image exists. When this applet attempts to draw the image on
+* the screen, the data will be loaded. The graphics primitives 
+* that draw the image will incrementally paint on the screen. 
+*
+* @param  url  an absolute URL giving the base location of the image
+* @param  name the location of the image, relative to the url argument
+* @return      the image at the specified URL
+*/
+public Image getImage(URL url, String name) {
+	try {
+		return getImage(new URL(url, name));
+	} catch (MalformedURLException e) {
+		return null;
+	}
+}</code></pre><p id="dc135e6a-5dba-4e8f-9960-9a8acbd933ac" class="">
+</p><p id="5aade1a6-170f-4e53-a0fe-70d3037cb222" class="">If the compiler find error like something unused but you want that the compiler doesn’t print the error while compiling you can use this tag.</p><pre id="a173eb1c-87ed-4e30-b0ef-33da5ff73dcc" class="code"><code>@SuppressWarnings(&quot;unused&quot;)</code></pre><p id="8a9f8beb-4195-4ff7-a94e-e67ddacaa9a9" class="">
+</p><p id="64b15db3-f9a5-4bb4-8993-74e90937f180" class="">Immutable class if there are not set methods. So this classes can only be instantiated but never modified.</p><pre id="a993d941-3888-4140-9cde-cdb8c7b8df2b" class="code"><code>// immutable
+public class NutritionFactsImmutable {
+
+  private final int servingSize;
+  private final int servings;
+  
+  public NutritionFactsImmutable(int servingSize) {
+    this(servingSize, 0);
+  }
+
+  public NutritionFactsImmutable(int servingSize, int servingss) {
+    this(servingSize, servings);
+  }
+}
+
+// mutable
+public class NutritionFactsMutable {
+
+  private int servingSize = -1;
+  private int servings = -1;
+
+  public NutritionFactsMutable() {}
+
+  public void setServingSize(int val) {
+    servingSize = val;
+  }
+
+  public void setServings(int val) {
+    servings = val;
+  }
+}</code></pre><p id="6c25a931-5479-496b-bca4-568a082e1b51" class="">
+</p><figure id="651b6b9d-6765-48b9-8029-91cc0add9dae" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Exception%20651b6b9d676548b9802991cc0add9dae.html">Exception</a></figure><figure id="76618217-078d-484b-9661-a85633b7cfda" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Programming%20with%20assertions%2076618217078d484b9661a85633b7cfda.html">Programming with assertions</a></figure><figure id="6b087ae6-bdb0-430f-bfb9-741d44e9f55e" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Record%206b087ae6bdb0430fbfb9741d44e9f55e.html">Record</a></figure><figure id="d51de972-af25-4ba2-9bbe-6cfdb328717d" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Defensive%20copy%20d51de972af254ba29bbe6cfdb328717d.html">Defensive copy</a></figure><figure id="b59a400d-f596-4211-bea3-b896bbaba4d0" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Control%20access%20to%20members%20of%20a%20class%20b59a400df5964211bea3b896bbaba4d0.html">Control access to members of a class</a></figure><figure id="6432deca-9f86-40a3-ab9c-577e991bd680" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Nested%20classes%20Inner%20classes%206432deca9f8640a3ab9c577e991bd680.html">Nested classes/Inner classes</a></figure><figure id="4b44ceb2-214b-4d29-adb7-e3ff23042b7c" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Anonymous%20classes%204b44ceb2214b4d29adb7e3ff23042b7c.html">Anonymous classes</a></figure><figure id="0bc08374-4b13-4dba-b0c6-f41f36e1cbbc" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Serialization%200bc083744b134dbab0c6f41f36e1cbbc.html">Serialization</a></figure><figure id="966ed11c-b85d-4ea1-a168-2e71ef0985a4" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Default%20&amp;%20Static%20methods%20in%20interfaces%20966ed11cb85d4ea1a1682e71ef0985a4.html">Default &amp; Static methods in interfaces</a></figure><figure id="b30079c3-79eb-4da5-a959-10cf1a0a82c5" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Dispatching%20&amp;%20Overloading%20b30079c379eb4da5a95910cf1a0a82c5.html">Dispatching &amp; Overloading</a></figure><figure id="91312b2f-34f7-4da9-acc1-681f867935e6" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Overriding%2091312b2f34f74da9acc1681f867935e6.html">Overriding</a></figure><figure id="be24e96e-8597-4a41-a616-beed594890e3" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Inheritance%20be24e96e85974a41a616beed594890e3.html">Inheritance</a></figure><figure id="ada25e7d-eb61-400f-98dd-12fa618fdcd9" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Equality%20&amp;%20inheritance%20(need%20a%20traduction)%20ada25e7deb61400f98dd12fa618fdcd9.html">Equality &amp; inheritance (need a traduction)</a></figure><figure id="e61e038a-af86-4571-a7d3-aaa179fe5167" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Composition%20&amp;%20delegation%20e61e038aaf864571a7d3aaa179fe5167.html">Composition &amp; delegation</a></figure><figure id="ff46d9b7-1d4a-4a77-9592-2d0f1358021c" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Collections%20ff46d9b71d4a4a7795922d0f1358021c.html">Collections</a></figure><figure id="00b6e8a8-bee7-483e-8093-4e4d3d40f38a" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Iterator%2000b6e8a8bee7483e80934e4d3d40f38a.html">Iterator</a></figure><figure id="ca61042f-f0d4-4343-98f3-cefe9f9bbd95" class="link-to-page"><a href="JAVA%20exam%202863e8aed34c48db8e0ce7c384b8124d/Enumeration%20ca61042ff0d4434398f3cefe9f9bbd95.html">Enumeration</a></figure><p id="39690523-f040-4623-9997-99e5b35fc534" class="">
+</p><p id="c85153b0-de7f-4833-8973-8b66ee56dc08" class=""><span style="border-bottom:0.05em solid">mutabile</span> → se campi mutabili/funzioni che mutano</p><p id="74ca7cec-b1b8-4795-ab51-e32904ec3685" class=""><span style="border-bottom:0.05em solid">immutabile</span> → se non è possibile modificarla e i campi non sono mutabili.</p><p id="6fe3776a-9ac1-4c4a-97ed-177018537994" class="">
+</p><p id="ab9cd703-a182-4b19-930f-be009cd59d40" class="">
+</p><p id="9f437aaf-d350-4b0b-b6c1-18a1d60b898c" class="">Example ar/ri </p><p id="b12a2ee9-85b8-43f0-96f4-36515488a611" class="">AF/Overview → Una piastrella quadrata immutabile, la cui rappresentazione è costituita dalla lunghezza (sempre positiva) del suo lato (memorizzata in un attributo intero, non modificabile e pubblico, fatto che rende non necessario un getter).</p><p id="fa7c6b90-feb2-4005-8b53-c41ffb83cbdd" class="">
+</p><p id="04b0fe25-1723-40d5-b91b-04b698e9131a" class="">Una pavimentazione immutabile, la cui rappresentazione è costituita da una collezione di Componente ciascuno dei quali rappresenta una certa quantità di un rivestimento (sia esso una piastrella o un&#x27;altra pavimentazione); è possibile accedere al suo contenuto tramite iterazione.</p><p id="c798b26a-12c1-4804-90fd-0fe54dc46fe5" class="">
+</p><p id="6432422c-aaec-4cac-9f94-fa139a43722f" class="">RI→le chiavi sono diverse da null, i valori sono positivi/ lato positivo e costo positivo</p><p id="4f3c2ef1-60c5-4189-a35c-b76116499afe" class="">
+</p><p id="93bde6b4-9c88-4686-b597-05a2e9fe6325" class="">take a look to:</p><p id="731aa74c-5a79-4610-8872-d77e1a499763" class=""><a href="https://prog2unimi-temi-svolti.netlify.app/intro/ifdm.html">https://prog2unimi-temi-svolti.netlify.app/intro/ifdm.html</a></p><p id="07c87e38-71c6-4576-a780-0a3e87a49c94" class="">
+</p><p id="51f437c4-7edc-4d42-a6df-9577df586d02" class="">exception <a href="https://dev.java/learn/exceptions/">https://dev.java/learn/exceptions/</a></p><p id="42ef59fd-1a72-4654-bb3f-897d7a4dc297" class="">t13 <a href="https://github.com/prog2-unimi/handouts/tree/318f1bac5e15cd616382aa62e0222e5022904f5b/src/it/unimi/di/prog2/t13">https://github.com/prog2-unimi/handouts/tree/318f1bac5e15cd616382aa62e0222e5022904f5b/src/it/unimi/di/prog2/t13</a></p><p id="6e8356ab-6392-4024-84a1-afbec1845945" class="">generics <a href="https://docs.oracle.com/javase/tutorial/java/generics/">https://docs.oracle.com/javase/tutorial/java/generics/</a></p><p id="30fe4a81-d1df-495e-a26a-e65a17667c3b" class="">generics and subtyping <a href="https://prog2-unimi.github.io/notes/TGERDS.html">https://prog2-unimi.github.io/notes/TGERDS.html</a></p><p id="8eb2ae81-8275-4184-9423-b64ac3fbb85a" class="">e08 <a href="https://github.com/prog2-unimi/esercitazioni/tree/de2980b9925430f47350403f700be597679d589d/testi/e08">https://github.com/prog2-unimi/esercitazioni/tree/de2980b9925430f47350403f700be597679d589d/testi/e08</a></p><p id="db4bfdc0-6b91-48df-9715-77dc02a66e29" class="">
+</p><p id="fe756cbf-9c0a-49b5-9fba-401c22ef5238" class="">lambda expression <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html</a></p></div></article></body></html>
